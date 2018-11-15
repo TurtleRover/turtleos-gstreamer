@@ -1,13 +1,13 @@
 DIST=raspbian_lite
-ZIP=$(DIST).zip
-IMAGE=$(DIST).img
+ZIP=${DIST}.zip
+IMAGE=${DIST}.img
 
 URL=https://downloads.raspberrypi.org/raspbian_lite_latest
 CWD=$(shell pwd)
 
 # Docker run arguments
 # Container must run in privileged mode to allow binding of loopback interfaces
-RUN_ARGS=-it --rm --privileged=true -v $(CWD)/images:/usr/rpi/images -v $(CWD)/resources:/usr/rpi/resources -w /usr/rpi ryankurte/docker-rpi-emu
+RUN_ARGS=-it --rm --privileged=true -v ${CWD}/images:/usr/rpi/images -v ${CWD}/resources:/usr/rpi/resources -w /usr/rpi ryankurte/docker-rpi-emu
 
 # Internal container mount directory
 MOUNT_DIR=/media/rpi
@@ -17,22 +17,22 @@ pull:
 	@docker pull ryankurte/docker-rpi-emu
 
 # Bootstrap a RPI image into the images directory
-bootstrap: images/$(IMAGE)
+bootstrap: images/${IMAGE}
 
 # Fetch the RPI image from the path above
-images/$(IMAGE):
+images/${IMAGE}:
 	@mkdir -p images
-	@wget -N -O images/$(ZIP) -c $(URL)
-	@unzip -d images/ images/$(ZIP)
-	@mv $(zipinfo -1 images/${ZIP}) images/$(IMAGE) 
+	@wget -N -O images/${ZIP} -c ${URL}
+	@unzip -d images/ images/${ZIP}
+	@mv $(zipinfo -1 images/${ZIP}) images/${IMAGE}
 
 # Launch the docker image without running any of the utility scripts
 run: pull bootstrap
-	@docker run $(RUN_ARGS) /bin/bash 
+	@docker run ${RUN_ARGS} /bin/bash 
 
 # Launch the docker image into an emulated session
 run-emu: pull bootstrap
-	@docker run $(RUN_ARGS) /bin/bash -c './run.sh images/$(IMAGE)'
+	@docker run ${RUN_ARGS} /bin/bash -c './run.sh images/${IMAGE}'
 
 # Build some fake resources to copy / execute
 # resources: resources/setup.sh
