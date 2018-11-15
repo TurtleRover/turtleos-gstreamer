@@ -1,0 +1,11 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - make run-emu
+
+cache:
+  directories:
+  - images/*.img
