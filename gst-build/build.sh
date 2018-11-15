@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 
 # install required packages
 apt-get update
-apt-get install git
+apt-get -y install git
 
 # Clone Cerbero and change to stable branch
 git clone https://github.com/GStreamer/cerbero.git -b 1.14
