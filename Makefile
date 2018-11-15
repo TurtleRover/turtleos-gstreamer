@@ -24,7 +24,7 @@ images/${IMAGE}:
 	mkdir -p images
 	wget -N -O images/${ZIP} -c ${URL}
 	unzip -d images/ images/${ZIP}
-	mv $(zipinfo -1 images/${ZIP}) images/${IMAGE}
+	mv images/$(zipinfo -1 images/${ZIP}) images/${IMAGE}
 
 # Launch the docker image without running any of the utility scripts
 run: pull bootstrap
