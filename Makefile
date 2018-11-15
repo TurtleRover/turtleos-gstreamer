@@ -22,9 +22,9 @@ bootstrap: images/${IMAGE}
 # Fetch the RPI image from the path above
 images/${IMAGE}:
 	mkdir -p images
-	wget -N -O images/${ZIP} -c ${URL}
+	wget -O images/${ZIP} -c ${URL}
 	unzip -d images/ images/${ZIP}
-	mv images/$(zipinfo -1 images/${ZIP}) images/${IMAGE}
+	mv images/`zipinfo -1 images/${ZIP}` images/${IMAGE}
 
 # Launch the docker image without running any of the utility scripts
 run: pull bootstrap
