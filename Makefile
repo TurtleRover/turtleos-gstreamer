@@ -44,6 +44,13 @@ copy: pull bootstrap
 		cp -Rpv /usr/rpi/${GST}/ ${MOUNT_DIR}/usr/; \
 		./unmount.sh $(MOUNT_DIR)'
 
+# Remove gstreamer build scripts and resources
+remove: pull bootstrap
+	docker run ${RUN_ARGS} /bin/bash -c 'mkdir -p ${MOUNT_DIR} && \
+		./mount.sh images/${IMAGE} ${MOUNT_DIR} && \
+		rm -rf ${MOUNT_DIR}/usr/${GST}; \
+		./unmount.sh $(MOUNT_DIR)'
+
 # Run the build script inside the qemu environment
 build: copy
 	docker run ${RUN_ARGS} /bin/bash -c './run.sh images/${IMAGE} /usr/${GST}/build.sh'
