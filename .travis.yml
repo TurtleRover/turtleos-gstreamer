@@ -12,7 +12,7 @@ install:
   - sudo apt-get install -y qemu qemu-user-static
 
 script:
-  - make build
+  - travis_wait make build
 
 cache:
   directories:
