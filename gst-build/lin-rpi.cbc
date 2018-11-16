@@ -1,0 +1,12 @@
+import os
+from cerbero.config import Platform, Architecture, Distro
+
+target_platform = Platform.LINUX
+target_distro = Distro.DEBIAN
+target_arch = Architecture.ARMv7
+
+prefix = '/opt/gstreamer-1.0'
+
+variants = [ 'rpi', 'v4l2', 'gi' ]
+
+allow_parallel_build = True
