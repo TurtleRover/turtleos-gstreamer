@@ -54,3 +54,7 @@ remove: pull bootstrap
 # Run the build script inside the qemu environment
 build: copy
 	docker run ${RUN_ARGS} /bin/bash -c './run.sh images/${IMAGE} /usr/${GST}/build.sh'
+
+# Run the build-timer script inside the qemu environment
+build-timer: copy
+	docker run ${RUN_ARGS} /bin/bash -c './run.sh images/${IMAGE} /usr/${GST}/build-timer.sh'
