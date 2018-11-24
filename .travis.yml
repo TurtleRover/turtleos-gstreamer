@@ -8,3 +8,4 @@ before_install:
 script:
   - bash download.sh
   - sudo bash mount.sh
+  - bash patch.sh
