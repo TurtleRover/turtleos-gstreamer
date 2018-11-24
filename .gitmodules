@@ -1,0 +1,4 @@
+[submodule "cerbero"]
+	path = cerbero
+	url = https://gitlab.freedesktop.org/gstreamer/cerbero.git
+	branch = 1.14
