@@ -11,10 +11,10 @@ install:
   - sudo apt-get install crossbuild-essential-armhf
 
 script:
-  - bash download.sh
-  - sudo bash mount.sh
-  - bash patch.sh
-  - sudo bash build.sh
+  - bash scripts/download.sh
+  - sudo bash scripts/mount.sh
+  - bash scripts/patch.sh
+  - sudo bash scripts/build.sh
 
 deploy:
   provider: releases
