@@ -5,7 +5,6 @@ sudo: required
 language: bash
 
 before_install:
-  - sudo dpkg --add-architecture armhf
   - sudo apt-get update
 
 install:
