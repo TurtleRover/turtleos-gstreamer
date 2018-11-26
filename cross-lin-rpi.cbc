@@ -10,6 +10,6 @@ isysroot =  sysroot
 host = 'arm-linux-gnueabihf'
 prefix = '/opt/gstreamer-1.0'
 
-variants = [ 'rpi', 'v4l2' ]
+variants = [ 'rpi', 'v4l2', 'notestpackage' ]
 
 allow_parallel_build = True

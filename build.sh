@@ -8,5 +8,5 @@ set -e
 cerbero/cerbero-uninstalled -c cerbero/config/cross-lin-rpi.cbc bootstrap
 
 # Build and package gstreamer for turtle
-#mkdir -p output/
-#cerbero/cerbero-uninstalled -c cerbero/config/cross-lin-rpi.cbc package -t gstreamer-1.0-turtle -o output/
+mkdir -p output/
+cerbero/cerbero-uninstalled -c cerbero/config/cross-lin-rpi.cbc package -t gstreamer-1.0-turtle -o output/

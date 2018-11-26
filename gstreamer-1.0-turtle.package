@@ -1,0 +1,16 @@
+# vi:si:et:sw=4:sts=4:ts=4:syntax=python
+# -*- Mode: Python -*-
+
+
+class Package(custom.GStreamer, package.Package):
+
+    name = 'gstreamer-1.0-turtle'
+    shortdesc = 'GStreamer 1.0 turtle'
+    longdesc = 'GStreamer 1.0 turtle'
+    uuid = '767b0437-9af0-41e9-9240-fa57730cb6ed'
+
+    files = ['gstreamer-1.0']
+    files_devel = ['gstreamer-1.0']
+
+    def prepare(self):
+        pass

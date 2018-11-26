@@ -15,3 +15,4 @@ done
 
 # Copy cerbero configuration file and package description
 cp cross-lin-rpi.cbc cerbero/config/
+cp gstreamer-1.0-turtle.package cerbero/packages/
