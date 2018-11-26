@@ -9,3 +9,4 @@ script:
   - bash download.sh
   - sudo bash mount.sh
   - bash patch.sh
+  - sudo bash build.sh

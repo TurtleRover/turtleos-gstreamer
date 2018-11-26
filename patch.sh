@@ -12,3 +12,6 @@ cat patches/cherry-pick | while read COMMIT; do
         git cherry-pick $COMMIT
     fi
 done
+
+# Copy cerbero configuration file and package description
+cp cross-lin-rpi.cbc cerbero/config/

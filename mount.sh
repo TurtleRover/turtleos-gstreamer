@@ -2,7 +2,7 @@
 # Mounts raspbian image root partition inside cerbero build system
 
 IMG='raspbian_lite.img'
-MNT='cerbero/config/raspbian_sysroot'
+MNT='cerbero/config/raspbian-sysroot'
 
 # Attach loopback device
 LOOP_DEV=`losetup -f --show image/${IMG}`
