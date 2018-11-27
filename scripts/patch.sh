@@ -10,8 +10,24 @@ cat patches/cherry-pick | while read COMMIT; do
         echo "commit $COMMIT already on the working tree, skipping"
     else
         git cherry-pick $COMMIT
+        if [[ $? != 0 ]]; then
+            echo "Cherry-pick failed, aborting..."
+            git cherry-pick --abort
+        fi
     fi
 done
+
+# apply patches
+if compgen -G patches/*.patch > /dev/null; then
+    for patch in patches/*.patch
+    do
+        git am < "$patch"
+        if [[ $? != 0 ]]; then
+            echo "Patch failed, aborting..."
+            git am --abort
+        fi
+    done
+fi
 
 # Copy cerbero configuration file and package description
 cp cross-lin-rpi.cbc cerbero/config/

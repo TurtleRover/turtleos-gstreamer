@@ -1,0 +1,26 @@
+From e1158f368c2c435044e5fe233dc6f17197ce8b0f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?B=C5=82a=C5=BCej=20Sowa?= <bsowa123@gmail.com>
+Date: Mon, 26 Nov 2018 23:50:43 +0100
+Subject: [PATCH] gst-omx: Add config file
+
+---
+ recipes/gst-omx-1.0.recipe | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/recipes/gst-omx-1.0.recipe b/recipes/gst-omx-1.0.recipe
+index 1e4b74e..4da378d 100644
+--- a/recipes/gst-omx-1.0.recipe
++++ b/recipes/gst-omx-1.0.recipe
+@@ -13,6 +13,9 @@ class Recipe(custom.GStreamer):
+         'lib/gstreamer-1.0/libgstomx.a',
+         'lib/gstreamer-1.0/libgstomx.la'
+     ]
++    files_etc = [
++        'etc/xdg/gstomx.conf'
++    ]
+ 
+     def prepare(self):
+         if self.config.variants.rpi:
+-- 
+2.7.4
+
