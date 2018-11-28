@@ -12,7 +12,7 @@ class Package(custom.GStreamer, package.Package):
     files = [ 'libffi:libs', 'zlib:libs', 'glib:libs',
         'gstreamer-1.0',
         'gst-shell',
-        'gst-plugins-base-1.0'
+        'gst-plugins-base-1.0',
         'gst-omx-1.0'
     ]
     files_devel = ['glib', 
