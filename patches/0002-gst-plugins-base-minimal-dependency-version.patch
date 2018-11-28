@@ -1,17 +1,17 @@
-From c2a6708241f905dc6a2ebad093098cf50f44ddad Mon Sep 17 00:00:00 2001
+From 54286c04e0ef70232abbce5eb33ce0cc8dab4834 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?B=C5=82a=C5=BCej=20Sowa?= <bsowa123@gmail.com>
-Date: Wed, 28 Nov 2018 12:44:15 +0100
+Date: Wed, 28 Nov 2018 21:17:59 +0100
 Subject: [PATCH] gst-plugins-base: minimal dependency version
 
 ---
- recipes/gst-plugins-base-1.0.recipe | 218 +++---------------------------------
- 1 file changed, 18 insertions(+), 200 deletions(-)
+ recipes/gst-plugins-base-1.0.recipe | 215 +++---------------------------------
+ 1 file changed, 17 insertions(+), 198 deletions(-)
 
 diff --git a/recipes/gst-plugins-base-1.0.recipe b/recipes/gst-plugins-base-1.0.recipe
-index 949a8e1..ce01c97 100644
+index 949a8e1..4ea7b46 100644
 --- a/recipes/gst-plugins-base-1.0.recipe
 +++ b/recipes/gst-plugins-base-1.0.recipe
-@@ -4,99 +4,43 @@
+@@ -4,11 +4,21 @@
  class Recipe(custom.GStreamer):
      name = 'gst-plugins-base-1.0'
      config_sh = 'sh ./autogen.sh --noconfigure && ./configure'
@@ -37,12 +37,9 @@ index 949a8e1..ce01c97 100644
      platform_deps = {Platform.ANDROID: [ 'tremor' ], Platform.IOS: [ 'tremor' ] }
      use_system_libs = True
  
-     files_bins = ['gst-discoverer-1.0', 'gst-play-1.0', 'gst-device-monitor-1.0']
- 
-     files_libs = ['libgstallocators-1.0',
--                 'libgstapp-1.0', 'libgstaudio-1.0',
--                 'libgstfft-1.0', 'libgstpbutils-1.0', 'libgstriff-1.0', 'libgstrtp-1.0',
-+                 'libgstapp-1.0', 'libgstfft-1.0', 'libgstpbutils-1.0', 'libgstriff-1.0', 'libgstrtp-1.0',
+@@ -18,85 +28,20 @@ class Recipe(custom.GStreamer):
+                  'libgstapp-1.0', 'libgstaudio-1.0',
+                  'libgstfft-1.0', 'libgstpbutils-1.0', 'libgstriff-1.0', 'libgstrtp-1.0',
                   'libgstrtsp-1.0', 'libgstsdp-1.0', 'libgsttag-1.0',
 -                 'libgstvideo-1.0', 'libgstgl-1.0']
 +                 'libgstvideo-1.0']
@@ -129,7 +126,7 @@ index 949a8e1..ce01c97 100644
      ]
  
      files_plugins_devel = [
-@@ -104,8 +48,6 @@ class Recipe(custom.GStreamer):
+@@ -104,8 +49,6 @@ class Recipe(custom.GStreamer):
              'include/gstreamer-1.0/gst/app',
              'include/gstreamer-1.0/gst/audio',
              'include/gstreamer-1.0/gst/fft',
@@ -138,7 +135,7 @@ index 949a8e1..ce01c97 100644
              'include/gstreamer-1.0/gst/pbutils',
              'include/gstreamer-1.0/gst/riff',
              'include/gstreamer-1.0/gst/rtp',
-@@ -117,7 +59,6 @@ class Recipe(custom.GStreamer):
+@@ -117,7 +60,6 @@ class Recipe(custom.GStreamer):
              'lib/pkgconfig/gstreamer-app-1.0.pc',
              'lib/pkgconfig/gstreamer-audio-1.0.pc',
              'lib/pkgconfig/gstreamer-fft-1.0.pc',
@@ -146,7 +143,7 @@ index 949a8e1..ce01c97 100644
              'lib/pkgconfig/gstreamer-pbutils-1.0.pc',
              'lib/pkgconfig/gstreamer-riff-1.0.pc',
              'lib/pkgconfig/gstreamer-rtp-1.0.pc',
-@@ -136,127 +77,4 @@ class Recipe(custom.GStreamer):
+@@ -136,127 +78,4 @@ class Recipe(custom.GStreamer):
              'lib/gstreamer-1.0/libgsttcp.a', 'lib/gstreamer-1.0/libgsttcp.la',
      ]
  
