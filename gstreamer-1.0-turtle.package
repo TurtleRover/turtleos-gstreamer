@@ -9,13 +9,13 @@ class Package(custom.GStreamer, package.Package):
     longdesc = 'GStreamer 1.0 turtle'
     uuid = '767b0437-9af0-41e9-9240-fa57730cb6ed'
 
-    files = [ 'libffi:libs', 'zlib:libs', 'glib:libs',
+    files = [ 'libffi:libs', 'zlib:libs', 'glib:libs', 'orc:libs',
         'gstreamer-1.0',
         'gst-shell',
         'gst-plugins-base-1.0',
         'gst-omx-1.0'
     ]
-    files_devel = ['glib', 
+    files_devel = ['libffi', 'zlib', 'glib', 'orc', 
         'gstreamer-1.0',
         'gst-plugins-base-1.0',
         'gst-omx-1.0'
