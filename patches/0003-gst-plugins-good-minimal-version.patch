@@ -42,7 +42,7 @@ index a62b86f..b1d54f3 100644
 +        '--disable-qt --disable-shout2 --disable-soup '\
 +        '--disable-speex --disable-taglib --disable-twolame '\
 +        '--disable-vpx --disable-wavpack --disable-zlib '\
-+        '--disable-bz2' 
++        '--disable-bz2'
      remotes = {'origin': 'https://anongit.freedesktop.org/git/gstreamer/gst-plugins-good'}
 -    deps = ['gstreamer-1.0', 'gst-plugins-base-1.0', 'libjpeg-turbo', 'libpng',
 -            'speex', 'gdk-pixbuf', 'libsoup', 'mpg123', 'lame',
