@@ -1,0 +1,481 @@
+From 254fd3bc746597748f8918356b504cae5b4196d0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?B=C5=82a=C5=BCej=20Sowa?= <bsowa123@gmail.com>
+Date: Sun, 2 Dec 2018 22:51:36 +0100
+Subject: [PATCH] gst-plugins-bad: only webrtc version
+
+---
+ recipes/gst-plugins-bad-1.0.recipe | 444 ++++++-------------------------------
+ 1 file changed, 62 insertions(+), 382 deletions(-)
+
+diff --git a/recipes/gst-plugins-bad-1.0.recipe b/recipes/gst-plugins-bad-1.0.recipe
+index 6955408..2f74800 100644
+--- a/recipes/gst-plugins-bad-1.0.recipe
++++ b/recipes/gst-plugins-bad-1.0.recipe
+@@ -5,402 +5,82 @@ from cerbero.utils import fix_android_ndk16_cxx
+ class Recipe(custom.GStreamer):
+     name = 'gst-plugins-bad-1.0'
+     config_sh = 'sh ./autogen.sh --noconfigure && ./configure'
+-    configure_options = '--enable-static --disable-introspection --disable-gsm \
+-        --disable-examples --disable-festival \
+-        --disable-videomaxrate --disable-bz2 --disable-libde265 \
+-        --disable-linsys --disable-fbdev --disable-apexsink \
+-        --disable-celt --disable-curl --disable-dc1394 --disable-directfb \
+-        --disable-dirac --disable-faac --disable-flite --disable-gme \
+-        --disable-lv2 --disable-mimic --disable-modplug \
+-        --disable-mpeg2enc --disable-mplex --disable-musepack --disable-mythtv \
+-        --disable-neon --disable-ofa --disable-openal --disable-opencv \
+-        --disable-pvr --disable-sdl --disable-sndfile \
+-        --disable-teletextdec --disable-timidity \
+-        --disable-vdpau --disable-voamrwbenc --disable-wildmidi \
+-        --disable-xvid --disable-zbar --disable-sdi --disable-srt'
+-    # Explicitly enable plugins
+-    configure_options += ' --enable-bz2 --enable-assrender \
+-        --enable-faad --enable-kate --enable-openh264 --enable-opus \
+-        --enable-hls --enable-rtmp --enable-srtp --enable-dts \
+-        --enable-libmms --enable-resindvd --enable-soundtouch \
+-        --enable-voaacenc --enable-rsvg --enable-openjpeg --enable-spandsp \
+-        --enable-decklink --enable-webrtc --enable-dtls'
++    configure_options = '--enable-static --disable-examples '\
++        '--disable-accurip --disable-adpcmdec --disable-adpcmenc '\
++        '--disable-aiff --disable-videoframe_audiolevel --disable-asfmux '\
++        '--disable-audiobuffersplit --disable-audiofxbad --disable-audiolatency '\
++        '--disable-audiomixmatrix --disable-compositor --disable-audiovisualizers '\
++        '--disable-autoconvert --disable-bayer --disable-camerabin2 '\
++        '--disable-coloreffects --disable-debugutils --disable-dvbsuboverlay '\
++        '--disable-dvdspu --disable-faceoverlay --disable-festival '\
++        '--disable-fieldanalysis --disable-freeverb --disable-frei0r '\
++        '--disable-gaudieffects --disable-geometrictransform --disable-gdp '\
++        '--disable-id3tag --disable-inter --disable-interlace '\
++        '--disable-ivfparse --disable-ivtc --disable-jp2kdecimator '\
++        '--disable-jpegformat --disable-librfb --disable-midi '\
++        '--disable-mpegdemux --disable-mpegtsdemux --disable-mpegtsmux '\
++        '--disable-mpegpsmux --disable-mxf --disable-netsim '\
++        '--disable-onvif --disable-pcapparse --disable-pnm '\
++        '--disable-proxy --disable-rawparse --disable-removesilence '\
++        '--disable-segmentclip --disable-siren '\
++        '--disable-smooth --disable-speed --disable-subenc '\
++        '--disable-stereo --disable-timecode --disable-videofilters '\
++        '--disable-videoparsers --disable-videosignal --disable-vmnc '\
++        '--disable-y4m --disable-yadif --disable-directsound '\
++        '--disable-wasapi --disable-direct3d --disable-winscreencap '\
++        '--disable-winks --disable-android_media --disable-apple_media '\
++        '--disable-bluez --disable-avc --disable-shm '\
++        '--disable-ipcpipeline --disable-vcd --disable-opensles '\
++        '--disable-uvch264 --disable-cuda --disable-nvdec '\
++        '--disable-nvenc --disable-tinyalsa --disable-msdk '\
++        '--disable-assrender --disable-aom --disable-voamrwbenc '\
++        '--disable-voaacenc --disable-bs2b --disable-bz2 '\
++        '--disable-chromaprint --disable-curl --disable-dash '\
++        '--disable-dc1394 --disable-decklink --disable-directfb '\
++        '--disable-wayland --disable-webp --disable-daala '\
++        '--disable-dts --disable-resindvd --disable-faac '\
++        '--disable-faad --disable-fbdev --disable-fdk_aac '\
++        '--disable-flite --disable-gsm --disable-fluidsynth '\
++        '--disable-kate --disable-kms --disable-ladspa '\
++        '--disable-lcms2 --disable-lv2 --disable-libde265 '\
++        '--disable-libmms --disable-srt '\
++        '--disable-ttml --disable-modplug '\
++        '--disable-mpeg2enc --disable-mplex --disable-musepack '\
++        '--disable-neon --disable-ofa --disable-openal '\
++        '--disable-opencv --disable-openexr --disable-openh264 '\
++        '--disable-openjpeg --disable-openmpt --disable-openni2 '\
++        '--disable-opus --disable-rsvg --disable-gl '\
++        '--disable-vulkan --disable-teletextdec --disable-wildmidi '\
++        '--disable-smoothstreaming --disable-sndfile --disable-soundtouch '\
++        '--disable-spc --disable-gme --disable-dvb '\
++        '--disable-acm --disable-vdpau --disable-sbc '\
++        '--disable-zbar --disable-rtmp --disable-spandsp '\
++        '--disable-hls --disable-x265 '
++    configure_options += '--enable-sdp --enable-dtls --enable-srtp --enable-webrtc'
+     remotes = {'origin': 'https://anongit.freedesktop.org/git/gstreamer/gst-plugins-bad'}
+-    deps = ['gstreamer-1.0', 'gst-plugins-base-1.0', 'bzip2', 'libass',
+-            'faad2', 'libkate', 'zlib', 'openh264', 'opus', 'nettle', 'librtmp',
+-            'libsrtp', 'libdca', 'libmms', 'libdvdnav', 'libnice',
+-            'soundtouch', 'vo-aacenc', 'librsvg', 'openjpeg', 'openssl',
+-            'spandsp', 'webrtc-audio-processing', 'sbc', 'ladspa']
++    deps = ['gstreamer-1.0', 'gst-plugins-base-1.0', 'libnice', 'openssl']
+     use_system_libs = True
+ 
+     files_lang = ['gst-plugins-bad-1.0']
+ 
+-    files_libs = ['libgstcodecparsers-1.0', 'libgstmpegts-1.0', 'libgsturidownloader-1.0',
+-                  'libgstbasecamerabinsrc-1.0', 'libgstphotography-1.0',
+-                  'libgstbadvideo-1.0',
+-                  'libgstinsertbin-1.0', 'libgstadaptivedemux-1.0',
+-                  'libgstplayer-1.0', 'libgstbadaudio-1.0',
+-                  'libgstisoff-1.0', 'libgstwebrtc-1.0']
++    files_libs = ['libgstwebrtc-1.0']
+ 
+     files_plugins_devel = [
+-        'include/gstreamer-1.0/gst/mpegts',
+-        'include/gstreamer-1.0/gst/player',
+-        'include/gstreamer-1.0/gst/base',
+-        'include/gstreamer-1.0/gst/audio',
+-        'include/gstreamer-1.0/gst/video',
+-        'include/gstreamer-1.0/gst/basecamerabinsrc',
+-        'include/gstreamer-1.0/gst/codecparsers',
+-        'include/gstreamer-1.0/gst/insertbin',
+-        'include/gstreamer-1.0/gst/interfaces',
+-        'include/gstreamer-1.0/gst/isoff',
+         'include/gstreamer-1.0/gst/webrtc',
+         'lib/pkgconfig/gstreamer-plugins-bad-1.0.pc',
+-        'lib/pkgconfig/gstreamer-mpegts-1.0.pc',
+-        'lib/pkgconfig/gstreamer-player-1.0.pc',
+-        'lib/pkgconfig/gstreamer-bad-audio-1.0.pc',
+-        'lib/pkgconfig/gstreamer-bad-video-1.0.pc',
+-        'lib/pkgconfig/gstreamer-codecparsers-1.0.pc',
+-        'lib/pkgconfig/gstreamer-insertbin-1.0.pc',
+         'lib/pkgconfig/gstreamer-webrtc-1.0.pc'
+     ]
+ 
+-    files_plugins_effects = [
+-             'lib/gstreamer-1.0/libgstaccurip%(mext)s',
+-             'lib/gstreamer-1.0/libgstaiff%(mext)s',
+-             'lib/gstreamer-1.0/libgstaudiofxbad%(mext)s',
+-             'lib/gstreamer-1.0/libgstautoconvert%(mext)s',
+-             'lib/gstreamer-1.0/libgstbayer%(mext)s',
+-             'lib/gstreamer-1.0/libgstcoloreffects%(mext)s',
+-             'lib/gstreamer-1.0/libgstdebugutilsbad%(mext)s',
+-             'lib/gstreamer-1.0/libgstfieldanalysis%(mext)s',
+-             'lib/gstreamer-1.0/libgstfreeverb%(mext)s',
+-             'lib/gstreamer-1.0/libgstfrei0r%(mext)s',
+-             'lib/gstreamer-1.0/libgstgaudieffects%(mext)s',
+-             'lib/gstreamer-1.0/libgstgeometrictransform%(mext)s',
+-             'lib/gstreamer-1.0/libgstinter%(mext)s',
+-             'lib/gstreamer-1.0/libgstinterlace%(mext)s',
+-             'lib/gstreamer-1.0/libgstivtc%(mext)s',
+-             'lib/gstreamer-1.0/libgstlegacyrawparse%(mext)s',
+-             'lib/gstreamer-1.0/libgstproxy%(mext)s',
+-             'lib/gstreamer-1.0/libgstremovesilence%(mext)s',
+-             'lib/gstreamer-1.0/libgstsegmentclip%(mext)s',
+-             'lib/gstreamer-1.0/libgstsmooth%(mext)s',
+-             'lib/gstreamer-1.0/libgstspeed%(mext)s',
+-             'lib/gstreamer-1.0/libgstsoundtouch%(mext)s',
+-             'lib/gstreamer-1.0/libgstvideofiltersbad%(mext)s',
+-             'lib/gstreamer-1.0/libgstcompositor%(mext)s',
+-             'lib/gstreamer-1.0/libgstwebrtcdsp%(mext)s',
+-             'lib/gstreamer-1.0/libgstladspa%(mext)s',
+-             'lib/gstreamer-1.0/libgstaudiobuffersplit%(mext)s',
+-    ]
+-
+-    files_plugins_effects_devel = [
+-             'lib/gstreamer-1.0/libgstaccurip.a', 'lib/gstreamer-1.0/libgstaccurip.la',
+-             'lib/gstreamer-1.0/libgstaiff.a', 'lib/gstreamer-1.0/libgstaiff.la',
+-             'lib/gstreamer-1.0/libgstaudiofxbad.a', 'lib/gstreamer-1.0/libgstaudiofxbad.la',
+-             'lib/gstreamer-1.0/libgstautoconvert.a', 'lib/gstreamer-1.0/libgstautoconvert.la',
+-             'lib/gstreamer-1.0/libgstbayer.a', 'lib/gstreamer-1.0/libgstbayer.la',
+-             'lib/gstreamer-1.0/libgstcoloreffects.a', 'lib/gstreamer-1.0/libgstcoloreffects.la',
+-             'lib/gstreamer-1.0/libgstdebugutilsbad.a', 'lib/gstreamer-1.0/libgstdebugutilsbad.la',
+-             'lib/gstreamer-1.0/libgstfieldanalysis.a', 'lib/gstreamer-1.0/libgstfieldanalysis.la',
+-             'lib/gstreamer-1.0/libgstfreeverb.a', 'lib/gstreamer-1.0/libgstfreeverb.la',
+-             'lib/gstreamer-1.0/libgstfrei0r.a', 'lib/gstreamer-1.0/libgstfrei0r.la',
+-             'lib/gstreamer-1.0/libgstgaudieffects.a', 'lib/gstreamer-1.0/libgstgaudieffects.la',
+-             'lib/gstreamer-1.0/libgstgeometrictransform.a', 'lib/gstreamer-1.0/libgstgeometrictransform.la',
+-             'lib/gstreamer-1.0/libgstinter.a', 'lib/gstreamer-1.0/libgstinter.la',
+-             'lib/gstreamer-1.0/libgstinterlace.a', 'lib/gstreamer-1.0/libgstinterlace.la',
+-             'lib/gstreamer-1.0/libgstivtc.a', 'lib/gstreamer-1.0/libgstivtc.la',
+-             'lib/gstreamer-1.0/libgstlegacyrawparse.a', 'lib/gstreamer-1.0/libgstlegacyrawparse.la',
+-             'lib/gstreamer-1.0/libgstproxy.a', 'lib/gstreamer-1.0/libgstproxy.la',
+-             'lib/gstreamer-1.0/libgstremovesilence.a', 'lib/gstreamer-1.0/libgstremovesilence.la',
+-             'lib/gstreamer-1.0/libgstsegmentclip.a', 'lib/gstreamer-1.0/libgstsegmentclip.la',
+-             'lib/gstreamer-1.0/libgstsmooth.a', 'lib/gstreamer-1.0/libgstsmooth.la',
+-             'lib/gstreamer-1.0/libgstspeed.a', 'lib/gstreamer-1.0/libgstspeed.la',
+-             'lib/gstreamer-1.0/libgstsoundtouch.a', 'lib/gstreamer-1.0/libgstsoundtouch.la',
+-             'lib/gstreamer-1.0/libgstvideofiltersbad.a', 'lib/gstreamer-1.0/libgstvideofiltersbad.la',
+-             'lib/gstreamer-1.0/libgstcompositor.a', 'lib/gstreamer-1.0/libgstcompositor.la',
+-             'lib/gstreamer-1.0/libgstwebrtcdsp.a', 'lib/gstreamer-1.0/libgstwebrtcdsp.la',
+-             'lib/gstreamer-1.0/libgstladspa.a', 'lib/gstreamer-1.0/libgstladspa.la',
+-             'lib/gstreamer-1.0/libgstaudiobuffersplit.a', 'lib/gstreamer-1.0/libgstaudiobuffersplit.la',
+-    ]
+-
+-    files_plugins_codecs = [
+-             'lib/gstreamer-1.0/libgstadpcmdec%(mext)s',
+-             'lib/gstreamer-1.0/libgstadpcmenc%(mext)s',
+-             'lib/gstreamer-1.0/libgstdashdemux%(mext)s',
+-             'lib/gstreamer-1.0/libgstdvbsuboverlay%(mext)s',
+-             'lib/gstreamer-1.0/libgstdvdspu%(mext)s',
+-             'lib/gstreamer-1.0/libgsthls%(mext)s',
+-             'lib/gstreamer-1.0/libgstid3tag%(mext)s',
+-             'lib/gstreamer-1.0/libgstkate%(mext)s',
+-             'lib/gstreamer-1.0/libgstmidi%(mext)s',
+-             'lib/gstreamer-1.0/libgstmxf%(mext)s',
+-             'lib/gstreamer-1.0/libgstopenh264%(mext)s',
+-             'lib/gstreamer-1.0/libgstopusparse%(mext)s',
+-             'lib/gstreamer-1.0/libgstpcapparse%(mext)s',
+-             'lib/gstreamer-1.0/libgstpnm%(mext)s',
+-             'lib/gstreamer-1.0/libgstrfbsrc%(mext)s',
+-             'lib/gstreamer-1.0/libgstsiren%(mext)s',
+-             'lib/gstreamer-1.0/libgstsmoothstreaming%(mext)s',
+-             'lib/gstreamer-1.0/libgstsubenc%(mext)s',
+-             'lib/gstreamer-1.0/libgstvideoparsersbad%(mext)s',
+-             'lib/gstreamer-1.0/libgsty4mdec%(mext)s',
+-             'lib/gstreamer-1.0/libgstjpegformat%(mext)s',
+-             'lib/gstreamer-1.0/libgstgdp%(mext)s',
+-             'lib/gstreamer-1.0/libgstrsvg%(mext)s',
+-             'lib/gstreamer-1.0/libgstopenjpeg%(mext)s',
+-             'lib/gstreamer-1.0/libgstspandsp%(mext)s',
+-             'lib/gstreamer-1.0/libgstsbc%(mext)s',
+-    ]
+-
+-    files_plugins_codecs_devel = [
+-             'lib/gstreamer-1.0/libgstadpcmdec.a', 'lib/gstreamer-1.0/libgstadpcmdec.la',
+-             'lib/gstreamer-1.0/libgstadpcmenc.a', 'lib/gstreamer-1.0/libgstadpcmenc.la',
+-             'lib/gstreamer-1.0/libgstdashdemux.a', 'lib/gstreamer-1.0/libgstdashdemux.la',
+-             'lib/gstreamer-1.0/libgstdvbsuboverlay.a', 'lib/gstreamer-1.0/libgstdvbsuboverlay.la',
+-             'lib/gstreamer-1.0/libgstdvdspu.a', 'lib/gstreamer-1.0/libgstdvdspu.la',
+-             'lib/gstreamer-1.0/libgsthls.a', 'lib/gstreamer-1.0/libgsthls.la',
+-             'lib/gstreamer-1.0/libgstid3tag.a', 'lib/gstreamer-1.0/libgstid3tag.la',
+-             'lib/gstreamer-1.0/libgstkate.a', 'lib/gstreamer-1.0/libgstkate.la',
+-             'lib/gstreamer-1.0/libgstmidi.a', 'lib/gstreamer-1.0/libgstmidi.la',
+-             'lib/gstreamer-1.0/libgstmxf.a', 'lib/gstreamer-1.0/libgstmxf.la',
+-             'lib/gstreamer-1.0/libgstopenh264.a', 'lib/gstreamer-1.0/libgstopenh264.la',
+-             'lib/gstreamer-1.0/libgstopusparse.a', 'lib/gstreamer-1.0/libgstopusparse.la',
+-             'lib/gstreamer-1.0/libgstpcapparse.a', 'lib/gstreamer-1.0/libgstpcapparse.la',
+-             'lib/gstreamer-1.0/libgstpnm.a', 'lib/gstreamer-1.0/libgstpnm.la',
+-             'lib/gstreamer-1.0/libgstrfbsrc.a', 'lib/gstreamer-1.0/libgstrfbsrc.la',
+-             'lib/gstreamer-1.0/libgstsiren.a', 'lib/gstreamer-1.0/libgstsiren.la',
+-             'lib/gstreamer-1.0/libgstsmoothstreaming.a', 'lib/gstreamer-1.0/libgstsmoothstreaming.la',
+-             'lib/gstreamer-1.0/libgstsubenc.a', 'lib/gstreamer-1.0/libgstsubenc.la',
+-             'lib/gstreamer-1.0/libgstvideoparsersbad.a', 'lib/gstreamer-1.0/libgstvideoparsersbad.la',
+-             'lib/gstreamer-1.0/libgsty4mdec.a', 'lib/gstreamer-1.0/libgsty4mdec.la',
+-             'lib/gstreamer-1.0/libgstjpegformat.a', 'lib/gstreamer-1.0/libgstjpegformat.la',
+-             'lib/gstreamer-1.0/libgstgdp.a', 'lib/gstreamer-1.0/libgstgdp.la',
+-             'lib/gstreamer-1.0/libgstrsvg.a', 'lib/gstreamer-1.0/libgstrsvg.la',
+-             'lib/gstreamer-1.0/libgstopenjpeg.a', 'lib/gstreamer-1.0/libgstopenjpeg.la',
+-             'lib/gstreamer-1.0/libgstspandsp.a', 'lib/gstreamer-1.0/libgstspandsp.la',
+-             'lib/gstreamer-1.0/libgstsbc.a', 'lib/gstreamer-1.0/libgstsbc.la',
+-    ]
+-
+-    platform_files_plugins_codecs = {
+-        Platform.ANDROID: [
+-             'lib/gstreamer-1.0/libgstandroidmedia%(mext)s',
+-            ]
+-    }
+-
+-    platform_files_plugins_codecs_devel = {
+-        Platform.ANDROID: [
+-             'lib/gstreamer-1.0/libgstandroidmedia.a', 'lib/gstreamer-1.0/libgstandroidmedia.la',
+-            ]
+-    }
+-
+-    files_plugins_codecs_gpl = [
+-             'lib/gstreamer-1.0/libgstassrender%(mext)s',
+-    ]
+-
+-    files_plugins_codecs_gpl_devel = [
+-             'lib/gstreamer-1.0/libgstassrender.a', 'lib/gstreamer-1.0/libgstassrender.la',
+-    ]
+-
+-    files_plugins_codecs_restricted = [
+-             'lib/gstreamer-1.0/libgstasfmux%(mext)s',
+-             'lib/gstreamer-1.0/libgstdtsdec%(mext)s',
+-             'lib/gstreamer-1.0/libgstfaad%(mext)s',
+-             'lib/gstreamer-1.0/libgstmpegpsdemux%(mext)s',
+-             'lib/gstreamer-1.0/libgstmpegpsmux%(mext)s',
+-             'lib/gstreamer-1.0/libgstmpegtsdemux%(mext)s',
+-             'lib/gstreamer-1.0/libgstmpegtsmux%(mext)s',
+-             'lib/gstreamer-1.0/libgstvoaacenc%(mext)s'
+-    ]
+-
+-    files_plugins_codecs_restricted_devel = [
+-             'lib/gstreamer-1.0/libgstasfmux.a', 'lib/gstreamer-1.0/libgstasfmux.la',
+-             'lib/gstreamer-1.0/libgstdtsdec.a', 'lib/gstreamer-1.0/libgstdtsdec.la',
+-             'lib/gstreamer-1.0/libgstfaad.a', 'lib/gstreamer-1.0/libgstfaad.la',
+-             'lib/gstreamer-1.0/libgstmpegpsdemux.a', 'lib/gstreamer-1.0/libgstmpegpsdemux.la',
+-             'lib/gstreamer-1.0/libgstmpegpsmux.a', 'lib/gstreamer-1.0/libgstmpegpsmux.la',
+-             'lib/gstreamer-1.0/libgstmpegtsdemux.a', 'lib/gstreamer-1.0/libgstmpegtsdemux.la',
+-             'lib/gstreamer-1.0/libgstmpegtsmux.a', 'lib/gstreamer-1.0/libgstmpegtsmux.la',
+-             'lib/gstreamer-1.0/libgstvoaacenc.a', 'lib/gstreamer-1.0/libgstvoaacenc.la',
+-    ]
+-
+-    files_plugins_dvd = [
+-             'lib/gstreamer-1.0/libgstresindvd%(mext)s',
+-    ]
+-
+-    files_plugins_dvd_devel = [
+-             'lib/gstreamer-1.0/libgstresindvd.a', 'lib/gstreamer-1.0/libgstresindvd.la',
+-    ]
+-
+     files_plugins_net = [
+-             'lib/gstreamer-1.0/libgstdtls%(mext)s',
+-             'lib/gstreamer-1.0/libgstsdpelem%(mext)s',
+-             'lib/gstreamer-1.0/libgstsrtp%(mext)s',
+-             'lib/gstreamer-1.0/libgstwebrtc%(mext)s',
++        'lib/gstreamer-1.0/libgstdtls%(mext)s',
++        'lib/gstreamer-1.0/libgstsdpelem%(mext)s',
++        'lib/gstreamer-1.0/libgstsrtp%(mext)s',
++        'lib/gstreamer-1.0/libgstwebrtc%(mext)s',
+     ]
+ 
+     files_plugins_net_devel = [
+-             'lib/gstreamer-1.0/libgstdtls.a', 'lib/gstreamer-1.0/libgstdtls.la',
+-             'lib/gstreamer-1.0/libgstsdpelem.a', 'lib/gstreamer-1.0/libgstsdpelem.la',
+-             'lib/gstreamer-1.0/libgstsrtp.a', 'lib/gstreamer-1.0/libgstsrtp.la',
+-             'lib/gstreamer-1.0/libgstwebrtc.a', 'lib/gstreamer-1.0/libgstwebrtc.la',
++        'lib/gstreamer-1.0/libgstdtls.a', 'lib/gstreamer-1.0/libgstdtls.la',
++        'lib/gstreamer-1.0/libgstsdpelem.a', 'lib/gstreamer-1.0/libgstsdpelem.la',
++        'lib/gstreamer-1.0/libgstsrtp.a', 'lib/gstreamer-1.0/libgstsrtp.la',
++        'lib/gstreamer-1.0/libgstwebrtc.a', 'lib/gstreamer-1.0/libgstwebrtc.la',
+     ]
+-
+-    files_plugins_net_restricted = [
+-             'lib/gstreamer-1.0/libgstmms%(mext)s',
+-             'lib/gstreamer-1.0/libgstrtmp%(mext)s',
+-    ]
+-
+-    files_plugins_net_restricted_devel = [
+-             'lib/gstreamer-1.0/libgstmms.a', 'lib/gstreamer-1.0/libgstmms.la',
+-             'lib/gstreamer-1.0/libgstrtmp.a', 'lib/gstreamer-1.0/libgstrtmp.la',
+-    ]
+-
+-    files_plugins_capture = [
+-             'lib/gstreamer-1.0/libgstcamerabin%(mext)s'
+-    ]
+-
+-    files_plugins_capture_devel = [
+-             'lib/gstreamer-1.0/libgstcamerabin.a', 'lib/gstreamer-1.0/libgstcamerabin.la',
+-    ]
+-
+-    platform_files_plugins_capture = {
+-        Platform.LINUX: [
+-             'lib/gstreamer-1.0/libgstdvb%(mext)s',
+-            ],
+-        Platform.WINDOWS: [
+-             'lib/gstreamer-1.0/libgstwinscreencap%(mext)s',
+-             'lib/gstreamer-1.0/libgstdirectsoundsrc%(mext)s',
+-             'lib/gstreamer-1.0/libgstwinks%(mext)s',
+-            ]
+-    }
+-
+-    platform_files_plugins_capture_devel = {
+-        Platform.LINUX: [
+-             'lib/gstreamer-1.0/libgstdvb.a', 'lib/gstreamer-1.0/libgstdvb.la',
+-            ],
+-        Platform.WINDOWS: [
+-             'lib/gstreamer-1.0/libgstwinscreencap.a', 'lib/gstreamer-1.0/libgstwinscreencap.la',
+-             'lib/gstreamer-1.0/libgstdirectsoundsrc.a', 'lib/gstreamer-1.0/libgstdirectsoundsrc.la',
+-             'lib/gstreamer-1.0/libgstwinks.a', 'lib/gstreamer-1.0/libgstwinks.la',
+-            ]
+-    }
+-
+-    files_plugins_vis = [
+-             'lib/gstreamer-1.0/libgstaudiovisualizers%(mext)s',
+-    ]
+-
+-    files_plugins_vis_devel = [
+-             'lib/gstreamer-1.0/libgstaudiovisualizers.a', 'lib/gstreamer-1.0/libgstaudiovisualizers.la',
+-    ]
+-
+-    platform_files_plugins_sys = {
+-        Platform.LINUX: [
+-             'lib/gstreamer-1.0/libgstshm%(mext)s',
+-             'lib/gstreamer-1.0/libgstopenglmixers%(mext)s',
+-             'lib/gstreamer-1.0/libgstdecklink%(mext)s',
+-            ],
+-        Platform.WINDOWS: [
+-             'lib/gstreamer-1.0/libgstd3d%(mext)s',
+-             'lib/gstreamer-1.0/libgstwasapi%(mext)s',
+-             'lib/gstreamer-1.0/libgstopenglmixers%(mext)s',
+-             'lib/gstreamer-1.0/libgstdecklink%(mext)s',
+-            ],
+-        Platform.DARWIN: [
+-             'lib/gstreamer-1.0/libgstapplemedia%(mext)s',
+-             'lib/gstreamer-1.0/libgstshm%(mext)s',
+-             'lib/gstreamer-1.0/libgstopenglmixers%(mext)s',
+-             'lib/gstreamer-1.0/libgstdecklink%(mext)s',
+-            ],
+-        Platform.IOS: [
+-             'lib/gstreamer-1.0/libgstapplemedia%(mext)s',
+-             'lib/gstreamer-1.0/libgstshm%(mext)s',
+-             'lib/gstreamer-1.0/libgstopenglmixers%(mext)s',
+-            ],
+-        Platform.ANDROID: [
+-             'lib/gstreamer-1.0/libgstopensles%(mext)s',
+-             'lib/gstreamer-1.0/libgstopenglmixers%(mext)s',
+-            ]
+-    }
+-
+-    platform_files_plugins_sys_devel = {
+-        Platform.LINUX: [
+-             'lib/gstreamer-1.0/libgstshm.a', 'lib/gstreamer-1.0/libgstshm.la',
+-             'lib/gstreamer-1.0/libgstopenglmixers.a', 'lib/gstreamer-1.0/libgstopenglmixers.la',
+-             'lib/gstreamer-1.0/libgstdecklink.a', 'lib/gstreamer-1.0/libgstdecklink.la',
+-            ],
+-        Platform.WINDOWS: [
+-             'lib/gstreamer-1.0/libgstd3d.a', 'lib/gstreamer-1.0/libgstd3d.la',
+-             'lib/gstreamer-1.0/libgstwasapi.a', 'lib/gstreamer-1.0/libgstwasapi.la',
+-             'lib/gstreamer-1.0/libgstopenglmixers.a', 'lib/gstreamer-1.0/libgstopenglmixers.la',
+-             'lib/gstreamer-1.0/libgstdecklink.a', 'lib/gstreamer-1.0/libgstdecklink.la',
+-            ],
+-        Platform.DARWIN: [
+-             'lib/gstreamer-1.0/libgstapplemedia.a', 'lib/gstreamer-1.0/libgstapplemedia.la',
+-             'lib/gstreamer-1.0/libgstshm.a', 'lib/gstreamer-1.0/libgstshm.la',
+-             'lib/gstreamer-1.0/libgstopenglmixers.a', 'lib/gstreamer-1.0/libgstopenglmixers.la',
+-             'lib/gstreamer-1.0/libgstdecklink.a', 'lib/gstreamer-1.0/libgstdecklink.la',
+-            ],
+-        Platform.IOS: [
+-             'lib/gstreamer-1.0/libgstapplemedia.a', 'lib/gstreamer-1.0/libgstapplemedia.la',
+-             'lib/gstreamer-1.0/libgstopenglmixers.a', 'lib/gstreamer-1.0/libgstopenglmixers.la',
+-             'lib/gstreamer-1.0/libgstshm.a', 'lib/gstreamer-1.0/libgstshm.la',
+-            ],
+-        Platform.ANDROID: [
+-             'lib/gstreamer-1.0/libgstopensles.a', 'lib/gstreamer-1.0/libgstopensles.la',
+-             'lib/gstreamer-1.0/libgstopenglmixers.a', 'lib/gstreamer-1.0/libgstopenglmixers.la',
+-            ]
+-    }
+-
+-    files_typelibs = [
+-        'GstInsertBin-1.0',
+-        'GstMpegts-1.0',
+-        'GstPlayer-1.0'
+-        ]
+-
+-    platform_files_codecs_devel = {
+-        Platform.ANDROID: [
+-              'share/gst-android/ndk-build',
+-            ]
+-    }
+-
+-    def prepare(self):
+-        self.append_env['CFLAGS'] = " -Wno-error "
+-        self.append_env['OBJCFLAGS'] = " -Wno-error "
+-        self.append_env['CXXFLAGS'] = " -Wno-error "
+-        self.append_env['CPPFLAGS'] = " -Wno-error "
+-
+-        if self.config.platform == Platform.WINDOWS:
+-            # FIXME: This will almost certainly fail to build on Windows due to
+-			# https://bugzilla.gnome.org/show_bug.cgi?id=770264
+-			# See also, -static and gstreamer-1.0-effects.package
+-			self.deps.remove('webrtc-audio-processing')
+-			self.files_plugins_effects.remove('lib/gstreamer-1.0/libgstwebrtcdsp%(mext)s')
+-			self.files_plugins_effects_devel.remove('lib/gstreamer-1.0/libgstwebrtcdsp.a')
+-			self.files_plugins_effects_devel.remove('lib/gstreamer-1.0/libgstwebrtcdsp.la')
+-
+-        if self.config.target_platform != Platform.LINUX:
+-            self.configure_options += ' --disable-gtk-doc '
+-        if self.config.target_platform == Platform.WINDOWS:
+-            self.configure_options += \
+-                ' --disable-cog --disable-sdl '\
+-                '--disable-cdaudio'
+-        if self.config.target_platform in [ Platform.ANDROID, Platform.IOS ]:
+-            for d in ['libdvdnav']:
+-                self.deps.remove(d)
+-            self.files_plugins_dvd.remove('lib/gstreamer-1.0/libgstresindvd%(mext)s')
+-            self.files_plugins_dvd_devel.remove('lib/gstreamer-1.0/libgstresindvd.a')
+-            self.files_plugins_dvd_devel.remove('lib/gstreamer-1.0/libgstresindvd.la')
+-        if self.config.variants.nodebug:
+-            self.append_env['CFLAGS'] += ' -DGST_LEVEL_MAX=GST_LEVEL_FIXME'
+-
+-        if self.config.target_distro_version in [DistroVersion.DEBIAN_SQUEEZE, DistroVersion.DEBIAN_WHEEZY]:
+-            self.platform_files_plugins_capture[Platform.LINUX].remove('lib/gstreamer-1.0/libgstdvb%(mext)s')
+-            self.platform_files_plugins_capture_devel[Platform.LINUX].remove('lib/gstreamer-1.0/libgstdvb.a')
+-            self.platform_files_plugins_capture_devel[Platform.LINUX].remove('lib/gstreamer-1.0/libgstdvb.la')
+-
+-    def configure (self):
+-        fix_android_ndk16_cxx (self.config, os.path.join(self.make_dir, 'ext', 'openh264'))
+-        fix_android_ndk16_cxx (self.config, os.path.join(self.make_dir, 'ext', 'soundtouch'))
+-        fix_android_ndk16_cxx (self.config, os.path.join(self.make_dir, 'ext', 'webrtcdsp'))
+-        super(recipe.Recipe, self).configure()
+-- 
+2.7.4
+

@@ -9,16 +9,22 @@ class Package(custom.GStreamer, package.Package):
     longdesc = 'GStreamer 1.0 turtle'
     uuid = '767b0437-9af0-41e9-9240-fa57730cb6ed'
 
-    files = [ 'libffi:libs', 'zlib:libs', 'glib:libs', 'orc:libs', 'libjpeg-turbo:libs',
+    files = [ 'libffi:libs', 'zlib:libs', 'glib:libs', 'orc:libs',
+        'libjpeg-turbo:libs', 'libnice:libs',
+        'gmp:libs', 'gnutls:libs:libs_extra:lang','libtasn1:libs', 'nettle:libs',
         'gstreamer-1.0',
         'gst-shell',
         'gst-plugins-base-1.0',
         'gst-plugins-good-1.0',
+        'gst-plugins-bad-1.0',
         'gst-omx-1.0'
     ]
-    files_devel = ['libffi', 'zlib', 'glib', 'orc', 'libjpeg-turbo',
+    files_devel = ['libffi', 'zlib', 'glib', 'orc', 
+        'libjpeg-turbo', 'libnice',
+        'gmp', 'gnutls','libtasn1', 'nettle',
         'gstreamer-1.0',
         'gst-plugins-base-1.0',
         'gst-plugins-good-1.0',
+        'gst-plugins-bad-1.0',
         'gst-omx-1.0'
     ]
