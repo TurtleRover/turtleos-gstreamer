@@ -1,0 +1,25 @@
+From 77ee93f624a4c1629af3ff1c683257643faef874 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?B=C5=82a=C5=BCej=20Sowa?= <bsowa123@gmail.com>
+Date: Sun, 2 Dec 2018 23:11:04 +0100
+Subject: [PATCH] libnice: add gnutls dependency
+
+---
+ recipes/libnice.recipe | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/recipes/libnice.recipe b/recipes/libnice.recipe
+index 399aff4..674005f 100644
+--- a/recipes/libnice.recipe
++++ b/recipes/libnice.recipe
+@@ -9,7 +9,7 @@ class Recipe(recipe.Recipe):
+     configure_options = '--enable-static --enable-static-plugins --enable-shared \
+             --with-gstreamer --without-gstreamer-0.10 \
+             --enable-compile-warnings=maximum --disable-gtk-doc'
+-    deps = ['glib', 'gtk-doc-lite', 'gstreamer-1.0']
++    deps = ['glib', 'gtk-doc-lite', 'gstreamer-1.0', 'gnutls']
+     autoreconf = True
+     patches = [
+         "libnice/0001-Fix-build-with-android-NDK-r16.patch",
+-- 
+2.7.4
+
