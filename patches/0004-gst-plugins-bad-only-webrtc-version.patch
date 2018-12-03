@@ -1,6 +1,6 @@
-From 254fd3bc746597748f8918356b504cae5b4196d0 Mon Sep 17 00:00:00 2001
+From 6a840a14bfe073b615abb3b36615f86f022a3593 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?B=C5=82a=C5=BCej=20Sowa?= <bsowa123@gmail.com>
-Date: Sun, 2 Dec 2018 22:51:36 +0100
+Date: Mon, 3 Dec 2018 02:05:49 +0100
 Subject: [PATCH] gst-plugins-bad: only webrtc version
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH] gst-plugins-bad: only webrtc version
  1 file changed, 62 insertions(+), 382 deletions(-)
 
 diff --git a/recipes/gst-plugins-bad-1.0.recipe b/recipes/gst-plugins-bad-1.0.recipe
-index 6955408..2f74800 100644
+index 6955408..2802236 100644
 --- a/recipes/gst-plugins-bad-1.0.recipe
 +++ b/recipes/gst-plugins-bad-1.0.recipe
 @@ -5,402 +5,82 @@ from cerbero.utils import fix_android_ndk16_cxx
@@ -93,7 +93,7 @@ index 6955408..2f74800 100644
 -            'libsrtp', 'libdca', 'libmms', 'libdvdnav', 'libnice',
 -            'soundtouch', 'vo-aacenc', 'librsvg', 'openjpeg', 'openssl',
 -            'spandsp', 'webrtc-audio-processing', 'sbc', 'ladspa']
-+    deps = ['gstreamer-1.0', 'gst-plugins-base-1.0', 'libnice', 'openssl']
++    deps = ['gstreamer-1.0', 'gst-plugins-base-1.0', 'libnice', 'openssl', 'libsrtp']
      use_system_libs = True
  
      files_lang = ['gst-plugins-bad-1.0']
