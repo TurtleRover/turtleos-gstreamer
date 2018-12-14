@@ -10,7 +10,7 @@ class Package(custom.GStreamer, package.Package):
     uuid = '767b0437-9af0-41e9-9240-fa57730cb6ed'
 
     files = [ 'libffi:libs', 'zlib:libs', 'glib:libs', 'orc:libs',
-        'libjpeg-turbo:libs', 'libnice:libs', 'libsrtp:libs',
+        'libjpeg-turbo:libs', 'libnice:libs:plugins_net', 'libsrtp:libs',
         'gmp:libs', 'gnutls:libs:libs_extra:lang','libtasn1:libs', 'nettle:libs',
         'gstreamer-1.0',
         'gst-shell',
